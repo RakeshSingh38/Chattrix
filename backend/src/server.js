@@ -9,6 +9,7 @@ import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
 
 import { connectDB } from "./lib/db.js";
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
@@ -17,7 +18,7 @@ const __dirname = path.resolve();
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+        origin: process.env.CLIENT_URL,
         credentials: true,
     })
 );
