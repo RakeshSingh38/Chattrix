@@ -2,6 +2,15 @@ import { upsertStreamUser } from "../lib/stream.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
+const sendToken = (res, token) => {
+    res.cookie("jwt", token, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+};
+
 export async function signup(req, res) {
     const { email, password, fullName } = req.body;
 
@@ -24,11 +33,9 @@ export async function signup(req, res) {
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res
-                .status(400)
-                .json({
-                    message: "Email already exists, please use a diffrent one",
-                });
+            return res.status(400).json({
+                message: "Email already exists, please use a diffrent one",
+            });
         }
 
         const idx = Math.floor(Math.random() * 100) + 1; // generate a num between 1-100
@@ -60,12 +67,7 @@ export async function signup(req, res) {
             }
         );
 
-        res.cookie("jwt", token, {
-            httpOnly: true,
-            sameSite: "None", // ✅ allow cross-origin cookies
-            secure: true, // ✅ required for SameSite=None
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        });
+        sendToken(res, token);
 
         res.status(201).json({ success: true, user: newUser });
     } catch (error) {
@@ -102,12 +104,7 @@ export async function login(req, res) {
             }
         );
 
-        res.cookie("jwt", token, {
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            httpOnly: true, // prevent XSS attacks,
-            sameSite: "strict", // prevent CSRF attacks
-            secure: process.env.NODE_ENV === "production",
-        });
+        sendToken(res, token);
 
         res.status(200).json({ success: true, user });
     } catch (error) {

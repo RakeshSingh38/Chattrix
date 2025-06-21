@@ -23,12 +23,10 @@ const __dirname = path.resolve();
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL, // ✅ clean and simple
-        credentials: true,
+        origin: "https://chattrix-liard.vercel.app", // ✅ Vercel URL
+        credentials: true, // ✅ Must be true to allow cookies
     })
 );
-
-
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
