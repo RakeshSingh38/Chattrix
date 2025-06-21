@@ -8,11 +8,6 @@ dotenv.config();
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
-app.use(express.json());
-app.use(cookieParser());
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/chat", chatRoutes);
 
 import { connectDB } from "./lib/db.js";
 
@@ -20,6 +15,11 @@ const app = express();
 const PORT = process.env.PORT;
 
 const __dirname = path.resolve();
+app.use(express.json());
+app.use(cookieParser());
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use(
     cors({
