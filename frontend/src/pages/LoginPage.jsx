@@ -38,7 +38,7 @@ const LoginPage = () => {
                 <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
                     {/* LOGO */}
                     <div className="mb-4 flex items-center justify-start gap-2">
-                        <ShipWheelIcon className="size-9 text-primary" />
+                        <ShipWheelIcon className="size-12 text-primary" />
                         <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
                             Chhatrix
                         </span>
@@ -143,7 +143,7 @@ const LoginPage = () => {
                 <div className="hidden lg:flex w-full lg:w-1/2 bg-primary/10 items-center justify-center">
                     <div className="max-w-md p-8">
                         {/* Illustration */}
-                        <div className="relative aspect-square max-w-sm mx-auto">
+                        <div className="relative aspect-auto max-w-sm mx-auto">
                             <img
                                 src="/i.png"
                                 alt="Language connection illustration"
